@@ -210,6 +210,7 @@
 		datasetStrokeWidth: 2,				// Number - Pixel width of dataset stroke
 		datasetStrokeColor: '#017BCC',		// String - Color of dataset stroke
 		datasetFillColor: '#65a5cc',
+		datasetFill: true,
 		datasetPointStrokeColor: 'white',	// String - Color of dataset stroke
 
 		bezierCurve: true,				// Boolean - Whether the line is curved between points
@@ -1018,8 +1019,9 @@
 			ctx.stroke();
 
 			if (this.options.datasetFill && dataset.points.length > 0) {
-				ctx.lineTo(dataset.points[dataset.points.length - 1].x, this.scale.endPoint);
-				ctx.lineTo(dataset.points[0].x, this.scale.endPoint);
+				var ymax = this.scale.calculateY(this.scale.yScaleRange.min)
+				ctx.lineTo(dataset.points[dataset.points.length - 1].x, ymax);
+				ctx.lineTo(dataset.points[0].x, ymax);
 				ctx.closePath();
 				ctx.fill();
 			}
