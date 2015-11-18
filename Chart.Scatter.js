@@ -1015,8 +1015,14 @@
 
 			}, this);
 
-			ctx.fill();
 			ctx.stroke();
+
+			if (this.options.datasetFill && dataset.points.length > 0) {
+				ctx.lineTo(dataset.points[dataset.points.length - 1].x, this.scale.endPoint);
+				ctx.lineTo(dataset.points[0].x, this.scale.endPoint);
+				ctx.closePath();
+				ctx.fill();
+			}
 
 			// debug
 			//if (this.options.bezierCurve) {
