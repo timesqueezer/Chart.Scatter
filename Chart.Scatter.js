@@ -208,7 +208,8 @@
 		// LINES
 		datasetStroke: true,				// Boolean - Whether to show a stroke for datasets
 		datasetStrokeWidth: 2,				// Number - Pixel width of dataset stroke
-		datasetStrokeColor: '#007ACC',		// String - Color of dataset stroke
+		datasetStrokeColor: '#017BCC',		// String - Color of dataset stroke
+		datasetFillColor: '#65a5cc',
 		datasetPointStrokeColor: 'white',	// String - Color of dataset stroke
 
 		bezierCurve: true,				// Boolean - Whether the line is curved between points
@@ -285,14 +286,12 @@
 
 			generateLabels: function (templateString, numberOfSteps, graphMin, stepValue) {
 
-				var labelsArray = new Array(numberOfSteps + 1),
-						stepDecimalPlaces = helpers.getDecimalPlaces(stepValue);
-
+				var labelsArray = new Array(numberOfSteps + 1);
 				if (templateString) {
 
 					helpers.each(labelsArray, function (val, index) {
 
-						labelsArray[index] = helpers.template(templateString, { value: (graphMin + (stepValue * (index))).toFixed(stepDecimalPlaces) });
+						labelsArray[index] = helpers.template(templateString, { value: (graphMin + (stepValue * (index))) });
 
 					});
 				}
@@ -633,6 +632,7 @@
 			this.strokeColor = datasetOptions.strokeColor || chartOptions.datasetStrokeColor;
 			this.pointColor = datasetOptions.pointColor || datasetOptions.strokeColor || chartOptions.datasetStrokeColor;
 			this.pointStrokeColor = datasetOptions.pointStrokeColor || chartOptions.datasetPointStrokeColor;
+			this.fillColor = datasetOptions.fillColor || chartOptions.datasetFillColor;
 
 			this.pointDot = chartOptions.pointDot;
 			this.pointDotRadius = chartOptions.pointDotRadius;
@@ -984,6 +984,7 @@
 			ctx.lineJoin = "round";
 			ctx.lineWidth = this.options.datasetStrokeWidth;
 			ctx.strokeStyle = dataset.strokeColor || this.options.datasetStrokeColor;
+			ctx.fillStyle = dataset.fillColor || this.options.datasetFillColor;
 
 			ctx.beginPath();
 
@@ -1014,6 +1015,7 @@
 
 			}, this);
 
+			ctx.fill();
 			ctx.stroke();
 
 			// debug
