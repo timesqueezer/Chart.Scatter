@@ -429,6 +429,12 @@
 
 			if (this.display) {
 
+				if (this.backgroundColor) {
+					ctx.rect(0, 0, this.chart.width, this.chart.height);
+					ctx.fillStyle = this.backgroundColor;
+					ctx.fill();
+				}
+
 				var xpos1 = this.calculateX(this.xScaleRange.min);
 				var xpos2 = this.chart.width;
 				var ypos1 = this.calculateY(this.yScaleRange.min);
@@ -786,6 +792,7 @@
 				fontSize: this.options.scaleFontSize,
 				fontStyle: this.options.scaleFontStyle,
 				fontFamily: this.options.scaleFontFamily,
+				backgroundColor: this.options.backgroundColor,
 
 				labelTemplate: this.options.scaleLabel,
 				argLabelTemplate: this.options.scaleArgLabel,
